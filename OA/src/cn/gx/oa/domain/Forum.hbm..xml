@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE hibernate-mapping PUBLIC 
+    "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+    "http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd">
+<hibernate-mapping>
+	<class name="cn.gx.oa.domain.Forum">
+		<id name="id">
+			<generator class="native"></generator>
+		</id>
+		<property name="name"></property>
+		<property name="description"></property>
+		<property name="position"></property>
+		<property name="articleCount"></property>
+		<property name="topicCount"></property>
+		<set name="topics" cascade="save-update">
+			<key column="forumId"></key>
+			<one-to-many class="cn.gx.oa.domain.Topic"/>
+		</set>
+		<many-to-one name="lastTopic" column="topicId" class="cn.gx.oa.domain.Topic" cascade="save-update" update="true"></many-to-one>
+	</class>
+</hibernate-mapping>

@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE hibernate-mapping PUBLIC 
+    "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+    "http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd">
+<hibernate-mapping>
+	<class name="cn.gx.oa.domain.Topic">
+		<id name="id">
+			<generator class="native"></generator>
+		</id>
+		<property name="title"></property>
+		<property name="type"></property>
+		<property name="content" type="text" length="65535"></property>
+		<property name="replyCount"></property>
+		<property name="createTime" type="timestamp"></property>
+		<property name="updateTime" type="timestamp"></property>
+		<set name="replies" cascade="save-update">
+			<key column="topicId"></key>
+			<one-to-many class="cn.gx.oa.domain.Reply"/>
+		</set>
+		<many-to-one name="forum" class="cn.gx.oa.domain.Forum" cascade="save-update" column="forumId"></many-to-one>
+		<many-to-one name="author" class="cn.gx.oa.domain.User" cascade="save-update" column="userId"></many-to-one>
+		<many-to-one name="lastReply" class="cn.gx.oa.domain.Reply" cascade="save-update" column="replyId" update="true"></many-to-one>
+	</class>
+</hibernate-mapping>

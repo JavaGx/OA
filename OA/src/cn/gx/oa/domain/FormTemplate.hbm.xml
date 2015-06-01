@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE hibernate-mapping PUBLIC 
+    "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+    "http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd">
+<hibernate-mapping>
+	<class name="cn.gx.oa.domain.FormTemplate">
+		<id name="id">
+			<generator class="native"></generator>
+		</id>
+		<property name="name"></property>
+		<property name="path"></property>
+		<property name="processKey"></property>
+		<set name="forms" cascade="save-update">
+			<key column="ftid"></key>
+			<one-to-many class="cn.gx.oa.domain.Form"/>
+		</set>
+	</class>
+</hibernate-mapping>

@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE hibernate-mapping PUBLIC 
+    "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+    "http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd">
+<hibernate-mapping>
+	<class name="cn.gx.oa.domain.Form">
+		<id name="id">
+			<generator class="native"></generator>
+		</id>
+		
+		<property name="title"></property>
+		<property name="applicant"></property>
+		<property name="applicateTime"></property>
+		<property name="status"></property>
+		
+		<many-to-one name="formTemplate" class="cn.gx.oa.domain.FormTemplate" column="ftid" cascade="save-update"></many-to-one>
+		<set name="approves" cascade="save-update">
+			<key column="formId"></key>
+			<one-to-many class="cn.gx.oa.domain.Approve"/>
+		</set>
+	</class>
+</hibernate-mapping>

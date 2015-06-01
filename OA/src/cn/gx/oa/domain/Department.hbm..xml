@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE hibernate-mapping PUBLIC 
+    "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+    "http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd">
+<hibernate-mapping>
+	<class name="cn.gx.oa.domain.Department">
+		<id name="id">
+			<generator class="native"></generator>
+		</id>
+		<property name="name"></property>
+		<property name="description"></property>
+		<set name="users" cascade="save-update">
+			<key column="departmentId"></key>
+			<one-to-many class="cn.gx.oa.domain.User"/>
+		</set>
+		<many-to-one name="parent" class="cn.gx.oa.domain.Department" cascade="save-update">
+			<column name="parentId"></column>
+		</many-to-one>
+		<set name="depts" cascade="save-update">
+			<key column="parentId"></key>
+			<one-to-many class="cn.gx.oa.domain.Department"/>
+		</set>
+	</class>
+</hibernate-mapping>

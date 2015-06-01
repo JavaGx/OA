@@ -1,0 +1,4 @@
+#Tue Jun 17 11:27:54 CST 2014
+eclipse.preferences.version=1
+validator.Checked=WebRoot/fckeditor/editor/dialog/fck_docprops.html,WebRoot/fckeditor/editor/filemanager/connectors/php/phpcompat.php
+validator.Unchecked=

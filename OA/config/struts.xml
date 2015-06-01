@@ -1,0 +1,116 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE struts PUBLIC
+    "-//Apache Software Foundation//DTD Struts Configuration 2.1.7//EN"
+    "http://struts.apache.org/dtds/struts-2.1.7.dtd">
+<struts>
+	<constant name="struts.action.extension" value="action"></constant>
+	<constant name="struts.devMode" value="true"></constant>
+	<constant name="struts.ui.theme" value="simple"></constant>
+	<constant name="struts.i18n.encoding" value="UTF-8"></constant>
+	<constant name="struts.ognl.allowStaticMethodAccess" value="true"></constant>
+	<package name="p1" namespace="/" extends="struts-default">
+		
+		<interceptors>
+			<interceptor name="checkPrivilegeInterceptor" class="cn.gx.oa.interceptor.CheckPrivilegeInterceptor"></interceptor>
+			<interceptor-stack name="defaultStack">
+				<interceptor-ref name="checkPrivilegeInterceptor"></interceptor-ref>
+				<interceptor-ref name="defaultStack"></interceptor-ref>
+			</interceptor-stack>
+		</interceptors>
+	
+		<global-results>
+			<result name="loginUI" type="redirect">loginUI.jsp</result>
+			<result name="noPrivilegeError">noPrivilegeError.jsp</result>
+		</global-results>
+	
+		<action name="role_*" class="roleAction" method="{1}">
+			<result name="list">WEB-INF/role/list.jsp</result>
+			<result name="tolist" type="redirectAction">role_list</result>
+			<result name="saveUI">WEB-INF/role/saveUI.jsp</result>
+			<result name="privilegeUI">WEB-INF/role/privilegeUI.jsp</result>
+		</action>
+		
+		<action name="department_*" class="departmentAction" method="{1}">
+			<result name="list">WEB-INF/department/list.jsp</result>
+			<result name="list_level2">WEB-INF/department/list_level2.jsp</result>
+			<result name="tolist" type="redirectAction">department_list?parentId=${parentId}</result>
+			<result name="saveUI">WEB-INF/department/saveUI.jsp</result>
+		</action>
+		
+		<action name="user_*" class="userAction" method="{1}">
+			<result name="list">WEB-INF/user/list.jsp</result>
+			<result name="tolist" type="redirectAction">user_list</result>
+			<result name="saveUI">WEB-INF/user/saveUI.jsp</result>
+			<result name="toIndex" type="redirectAction">client_index</result>
+		</action>
+		
+		
+		<action name="client_*" class="clientAction" method="{1}">
+			<result name="{1}">WEB-INF/client/{1}.jsp</result>
+			<result name="return index">index.jsp</result>
+		</action>
+		
+		<action name="forumManage_*" class="forumManageAction" method="{1}">
+			<result name="list">WEB-INF/forumManage/list.jsp</result>
+			<result name="tolist" type="redirectAction">forumManage_list</result>
+			<result name="saveUI">WEB-INF/forumManage/saveUI.jsp</result>
+		</action>
+		
+		
+		<action name="forum_*" class="forumAction" method="{1}">
+			<result name="list">WEB-INF/forum/list.jsp</result>
+		</action>	
+			
+		<action name="topic_*" class="topicAction" method="{1}">
+			<result name="list">WEB-INF/topic/list.jsp</result>
+			<result name="addUI">WEB-INF/topic/addUI.jsp</result>
+			<result name="show">WEB-INF/topic/show.jsp</result>
+			<result name="tolist" type="redirectAction">topic_list?forumId=${forumId}</result>
+		</action>
+		
+		<action name="reply_*" class="replyAction" method="{1}">
+			<result name="show" type="redirectAction">
+				<param name="actionName">topic_show</param>
+				<param name="id">${topicId}</param>
+			</result>
+			<result name="addUI">WEB-INF/reply/addUI.jsp</result>
+		</action>
+		
+		<action name="processDefinition_*" class="processDefinitionAction" method="{1}">
+			<result name="list">WEB-INF/processDefinition/list.jsp</result>
+			<result name="addUI">WEB-INF/processDefinition/addUI.jsp</result>
+			<result name="tolist" type="redirectAction">processDefinition_list</result>
+			<result name="downImage" type="stream">
+				<param name="inputName">inputStream</param>
+				<param name="contentType">image/png</param>
+			</result>
+		</action>
+		
+		
+		<action name="formTemplate_*" class="formTemplateAction" method="{1}">
+			<result name="list">WEB-INF/formTemplate/list.jsp</result>
+			<result name="tolist" type="redirectAction">formTemplate_list</result>
+			<result name="saveUI">WEB-INF/formTemplate/saveUI.jsp</result>
+			<result name="download" type="stream">
+				<param name="inputStream">inputStream</param>
+				<param name="ContentType">application/octet-stream</param>
+				<param name="contentDisposition">attachment;filename="${#fileName}.doc"</param>
+			</result>
+		</action>	
+		
+		
+		<action name="workFlow_*" class="workFlowAction" method="{1}">
+			<result name="listFormTemplate">WEB-INF/workFlow/listFormTemplate.jsp</result>
+			<result name="submitUI">WEB-INF/workFlow/submitUI.jsp</result>
+			<result name="submit" type="redirectAction">workFlow_formList</result>
+			<result name="taskList">WEB-INF/workFlow/approveViewList.jsp</result>
+			<result name="formList">WEB-INF/workFlow/formList.jsp</result>
+		</action>	
+		
+		<action name="approve_*" class="approveAction" method="{1}">
+			<result name="list">WEB-INF/approve/list.jsp</result>
+			<result name="approveUI">WEB-INF/approve/approveUI.jsp</result>
+			<result name="submit" type="redirectAction">workFlow_taskList</result>
+		</action>	
+	</package>
+</struts>

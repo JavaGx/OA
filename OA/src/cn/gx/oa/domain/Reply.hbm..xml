@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE hibernate-mapping PUBLIC 
+    "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+    "http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd">
+<hibernate-mapping>
+	<class name="cn.gx.oa.domain.Reply">
+		<id name="id">
+			<generator class="native"></generator>
+		</id>
+		<property name="title"></property>
+		<property name="content" type="text" length="65535"></property>
+		<property name="createTime" type="timestamp"></property>
+		<many-to-one name="author" class="cn.gx.oa.domain.User" cascade="save-update" column="userId"></many-to-one>
+		<many-to-one name="topic" class="cn.gx.oa.domain.Topic" cascade="save-update" column="topicId"></many-to-one>
+	</class>
+</hibernate-mapping>
